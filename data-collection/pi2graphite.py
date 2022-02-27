@@ -12,7 +12,6 @@ GRAPHITE_USER = ""
 
 metrics_to_log = [
 	["Temperature",vcgm.measure_temp()],
-	["Throttled",vcgm.get_throttled()],
 	["CPU Memory",vcgm.get_mem("arm")],
 	["GPU Memory",vcgm.get_mem("gpu")]
 	]
@@ -20,9 +19,9 @@ metrics_to_log = [
 def make_metric(metric_list):
 	name,command = metric_list
 	metric = {
-	"name": name,
+	"name": "monitor.pi4.ind."+name.replace(" ","_"),
 	"interval": 1,
-	"metric": "monitor.pi4.ind."+name.replace(" ","_"),
+	"metric": name,
 	"value": command(),
 	"time": int(datetime.now().timestamp())
 	}
